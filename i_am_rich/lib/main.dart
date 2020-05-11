@@ -12,7 +12,7 @@ void main(){
       ),
         body: Center(
           child: Image(
-            image: NetworkImage('https://lokeshdhakar.com/projects/lightbox2/images/image-3.jpg')
+            image: AssetImage('images/diamond.png')
           ),
         ),
       )
