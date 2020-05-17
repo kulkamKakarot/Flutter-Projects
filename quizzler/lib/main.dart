@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'quizbrain.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+
+QuizBrain quizbrain = QuizBrain();
 
 void main() => runApp(Quizzler());
 
@@ -25,12 +29,37 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  void checkAnswer(bool userPickedAnswer) {
+    bool checkanswer = quizbrain.getAnswer();
+    
+    setState(() {
 
-  List<Icon> scorekeeper = [
-    Icon(Icons.check, color: Colors.green),
-    Icon(Icons.close, color: Colors.red),
-    Icon(Icons.check, color: Colors.green),
-  ];
+      if(quizbrain.isFinished() == true){
+        Alert(context: context, title: 'Finished',
+        desc: 'You\'ve reached the end of this quiz.').show();
+
+        quizbrain.reset();
+
+        scorekeeper = [];
+      }
+    
+    if (checkanswer == userPickedAnswer) {
+      scorekeeper.add(Icon(
+        Icons.check,
+        color: Colors.green,
+      ));
+    } else {
+      scorekeeper.add(Icon(
+        Icons.close,
+        color: Colors.red,
+      ));
+    }
+
+      quizbrain.checkQuestion();
+    });
+  }
+
+  List<Icon> scorekeeper = [];
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +73,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                'This is where the question text will go.',
+                quizbrain.getQuestionText(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -69,9 +98,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked true.
-                setState(() {
-                  scorekeeper.add(Icon(Icons.check,color: Colors.green));
-                });
+                checkAnswer(true);
               },
             ),
           ),
@@ -90,6 +117,7 @@ class _QuizPageState extends State<QuizPage> {
               ),
               onPressed: () {
                 //The user picked false.
+                checkAnswer(false);
               },
             ),
           ),
