@@ -29,37 +29,40 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+  List<Icon> scorekeeper = [];
+
   void checkAnswer(bool userPickedAnswer) {
     bool checkanswer = quizbrain.getAnswer();
-    
     setState(() {
-
-      if(quizbrain.isFinished() == true){
-        Alert(context: context, title: 'Finished',
-        desc: 'You\'ve reached the end of this quiz.').show();
+      if (quizbrain.isFinished() == true) {
+        Alert(
+                context: context,
+                title: 'Finished',
+                desc: 'You\'ve reached the end of this quiz.')
+            .show();
 
         quizbrain.reset();
 
         scorekeeper = [];
       }
-    
-    if (checkanswer == userPickedAnswer) {
-      scorekeeper.add(Icon(
-        Icons.check,
-        color: Colors.green,
-      ));
-    } else {
-      scorekeeper.add(Icon(
-        Icons.close,
-        color: Colors.red,
-      ));
-    }
+      
+      else{
+      if (checkanswer == userPickedAnswer) {
+        scorekeeper.add(Icon(
+          Icons.check,
+          color: Colors.green,
+        ));
+      } else {
+        scorekeeper.add(Icon(
+          Icons.close,
+          color: Colors.red,
+        ));
+      }
 
       quizbrain.checkQuestion();
+      }
     });
   }
-
-  List<Icon> scorekeeper = [];
 
   @override
   Widget build(BuildContext context) {
