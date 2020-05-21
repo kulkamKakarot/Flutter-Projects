@@ -20,25 +20,25 @@ class _InputPageState extends State<InputPage> {
               child: Row(
                 children: <Widget>[
                   Expanded(
-                    child: Contaners(),
+                    child: Contaners(colour: Color(0xFF1D1E33),),
                   ),
                   Expanded(
-                    child: Contaners(),
+                    child: Contaners(colour: Color(0xFF1D1E33),),
                   ),
                 ],
               ),
             ),
             Expanded(
-              child: Contaners(),
+              child: Contaners(colour: Color(0xFF1D1E33),),
             ),
             Expanded(
               child: Row(
                 children: <Widget>[
                   Expanded(
-                    child: Contaners(),
+                    child: Contaners(colour: Color(0xFF1D1E33),),
                   ),
                   Expanded(
-                    child: Contaners(),
+                    child: Contaners(colour: Color(0xFF1D1E33),),
                   ),
                 ],
               ),
@@ -51,16 +51,16 @@ class _InputPageState extends State<InputPage> {
 }
 
 class Contaners extends StatelessWidget {
-  const Contaners({
-    Key key,
-  }) : super(key: key);
+  Contaners({@required this.colour});
+
+  Color colour;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(15),
       decoration: BoxDecoration(
-          color: Color(0xFF1D1E33), borderRadius: BorderRadius.circular(15)),
+          color: colour, borderRadius: BorderRadius.circular(15),),
     );
   }
 }
